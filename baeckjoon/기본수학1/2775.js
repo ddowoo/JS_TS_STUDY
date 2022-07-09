@@ -6,7 +6,7 @@ const inputs = `2
 3
 2
 3`.split("\n");
-const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+// const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
 inputs.shift();
 
 const getPeople = (floor, room) => {
