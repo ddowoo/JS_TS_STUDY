@@ -1,6 +1,6 @@
 const inputs = `1
 )`.split("\n");
-// const inputs = require("fs").readFileSync(0).toString().split("\n");
+// const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
 inputs.shift();
 const LEFT = "(";
 let answer = [];
