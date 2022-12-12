@@ -1,17 +1,18 @@
 //DFS와 BFS
+// 강의 : https://www.youtube.com/watch?v=7C9RgOcvkvo
 // https://www.acmicpc.net/problem/1260
 
 // const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
 //   .map((num) => second[Number(num)])
 //   .join("");
 
-const inputs = `5 5 1
-1 2
-2 3
-3 1
-1 4
-3 5`.split("\n");
-// const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+// const inputs = `5 5 3
+// 5 4
+// 5 2
+// 1 2
+// 3 4
+// 3 1`.split("\n");
+const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
 
 const [N, M, V] = inputs[0].split(" ").map((r) => Number(r));
 inputs.shift();
@@ -20,82 +21,46 @@ let graph = new Array(N + 1).fill([]);
 routes.forEach((route) => {
   const from = route[0];
   const to = route[1];
-
   graph[from] = [...graph[from], to];
   graph[to] = [...graph[to], from];
 });
-function MyDfs(now, answer) {
-  if (answer.length === N) return console.log(answer.join(" "));
-  const next = Math.min(...graph[now].filter((num) => !answer.includes(num)));
+graph = graph.map((nodes) => nodes.sort((a, b) => a - b));
 
-  if (next === Infinity) {
-    for (let i = 1; i <= graph.length; i++) {
-      if (graph[i] !== [] && !answer.includes(i)) {
-        answer.push(i);
-        MyDfs(next, answer);
-        break;
-      }
-    }
+let visited = [V];
+
+//dfs는 stack,재귀를 활용
+const dfs = (stack) => {
+  if (visited.length === N || stack.length === 0) return console.log(visited.join(" "));
+
+  const now = stack[stack.length - 1];
+  const canNext = graph[now].filter((node) => !visited.includes(node) && node);
+
+  if (canNext.length === 0) {
+    stack.pop();
+    return dfs(stack);
   } else {
-    answer.push(next);
-    return MyDfs(next, answer);
+    visited.push(canNext[0]);
+    return dfs([...stack, canNext[0]]);
   }
-}
-MyDfs(V, [V]);
-
-const MyBfs = () => {
-  const stack = [V];
-
-  for (let i = 0; i < M; i++) {
-    const now = stack[i];
-    const next = graph[now].filter((num) => !stack.includes(num));
-    next.sort((a, b) => a - b);
-    stack.push(...next);
-    if (stack.length === N) break;
-  }
-
-  return console.log(stack.join(" "));
 };
 
-MyBfs();
+dfs([V]);
 
-// 참고
-// let visited = new Array(N + 1).fill(0);
-// let answer_dfs = [];
-// function DFS(v) {
-//   if (visited[v]) return;
-//   visited[v] = 1;
-//   answer_dfs.push(v);
-//   for (let i = 0; i < graph[v].length; i++) {
-//     let next = graph[v][i];
-//     if (visited[next] === 0) {
-//       DFS(next);
-//     }
-//   }
-// }
-// DFS(V);
-// console.log(answer_dfs.join(" "));
+visited = [V];
+// bfs는 큐를 활용한다.
+const bfs = () => {
+  const queue = [V];
 
-// const DFS = (now, current) => {
-//   if (current.length === N || current.length > M) {
-//     console.log(current.join(" "));
-//     return current.join(" ");
-//   } else {
-//     const canNext = [];
-
-//     //다음 경로로 갈곳
-//     routes.forEach((route) => {
-//       if (route[0] === now && !current.includes(route[1])) canNext.push(route[1]);
-//       if (route[1] === now && !current.includes(route[0])) canNext.push(route[0]);
-//     });
-//     // 갈수 있는 곳중 가장 숫자가 작은곳
-//     console.log("canNext", canNext);
-//     const next = Math.min(...canNext);
-//     current.push(next);
-
-//     DFS(next, current);
-//   }
-// };
-
-// DFS(V, [V]);
-// BFS();
+  while (queue.length !== 0) {
+    const now = queue.shift();
+    const canNext = graph[now];
+    for (let i = 0; i < canNext.length; i++) {
+      if (!visited.includes(canNext[i])) {
+        visited.push(canNext[i]);
+        queue.push(canNext[i]);
+      }
+    }
+  }
+  return console.log(visited.join(" "));
+};
+bfs();

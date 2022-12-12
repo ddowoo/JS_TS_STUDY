@@ -12,14 +12,14 @@ function solution(maps) {
 
   while (queue.length) {
     result++; //지금 있는 곳 한칸을 칠해줌
-    let size = queue.length; //for문은 이전queue에서 갈수있었던 모든 지점 수가 된다
+    let size = queue.length; //for문은 이전queue에서 갈수있었던 모든 지점 수만큼 돌아간다
 
     for (let i = 0; i < size; i++) {
-      let point = queue.shift();
+      let point = queue.shift();  // 지점들을 하나 하나 제거하며 각 지점에서 갈수있는 다음 지점들을 다시 queue에 모아준다 
       let curY = point[0];
       let curX = point[1];
 
-      if (visited[curY][curX]) continue;
+      if (visited[curY][curX]) continue; // 현재 지점이 이미 방문했으면 패스 
 
       maps[curY][curX] = 0;
 
