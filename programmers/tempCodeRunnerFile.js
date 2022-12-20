@@ -1,1 +1,1 @@
-    nodes.splice(nowNode, 1);
+  return console.log(dfs(tickets, ["ICN"]));
