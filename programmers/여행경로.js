@@ -8,6 +8,8 @@ function solution(tickets) {
     leftTickets.forEach((ticket, index) => {
       if (ticket[0] === course[course.length - 1]) canGo.push([ticket[1], index]);
     });
+
+    //배열 내 배열 기준으로 정렬할기
     canGo.sort();
     canGo.forEach((next) => {
       const _course = [...course, next[0]];
