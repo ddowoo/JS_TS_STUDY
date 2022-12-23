@@ -8,6 +8,9 @@ function solution(maps) {
 
   // 얕은 복사로 새로운 배열을 만든다 (form)
   let visited = Array.from(Array(maps.length), () => new Array(maps[0].length).fill(false));
+
+  visited[0][0] = "p";
+  console.log(visited);
   let result = 0;
 
   while (queue.length) {
@@ -15,11 +18,11 @@ function solution(maps) {
     let size = queue.length; //for문은 이전queue에서 갈수있었던 모든 지점 수만큼 돌아간다
 
     for (let i = 0; i < size; i++) {
-      let point = queue.shift();  // 지점들을 하나 하나 제거하며 각 지점에서 갈수있는 다음 지점들을 다시 queue에 모아준다 
+      let point = queue.shift(); // 지점들을 하나 하나 제거하며 각 지점에서 갈수있는 다음 지점들을 다시 queue에 모아준다
       let curY = point[0];
       let curX = point[1];
 
-      if (visited[curY][curX]) continue; // 현재 지점이 이미 방문했으면 패스 
+      if (visited[curY][curX]) continue; // 현재 지점이 이미 방문했으면 패스
 
       maps[curY][curX] = 0;
 
@@ -84,3 +87,26 @@ console.log(
 
 //   return -1;
 // }
+[
+  [0, "y", "y", "y", "y", "y"],
+  [0, "y", "x", "x", "x", "y"],
+  [0, "y", "x", "x", "x", "y"],
+  [0, "y", "x", "x", "x", "y"],
+  [0, "y", "x", "x", "x", "y"],
+  [0, "y", "x", "x", "x", "y"],
+  [0, "y", "y", "y", "y", "y"],
+  [0, 0, 0, 0, 0, 0],
+];
+
+[
+  [0, 0, "y", "y", "y", 0, 0, 0, 0, 0],
+  [0, 0, "y", "x", "y", "y", "y", "y", "y", "y"],
+  [0, 0, "y", "x", "x", "x", "x", "x", "x", "y"],
+  [0, 0, "y", "x", "y", "y", "y", "y", "y", "y"],
+  [0, 0, "y", "x", "y", 0, "y", "y", 0, 0],
+  [0, "y", "y", "x", "y", "y", "y", "y", "y", 0],
+  [0, "y", "x", "x", "x", "x", "x", "x", "y", 0],
+  [0, "y", "x", "x", "x", "x", "x", "x", "y", 0],
+  [0, "y", "y", "y", "y", "y", "y", "y", "y", 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];

@@ -1,7 +1,7 @@
 function solution(rectangle, characterX, characterY, itemX, itemY) {
   const x = [50, 50];
   const y = [0, 0];
-
+  let answer;
   rectangle.forEach((locaions) => {
     for (let i = 0; i < 4; i++) {
       if (i < 2) {
@@ -12,9 +12,12 @@ function solution(rectangle, characterX, characterY, itemX, itemY) {
       }
     }
   });
-
-  let nodeGraph = new Array(y[1] + 1).fill([...new Array()]);
-  let blockGraph = new Array(y[1] + 1).fill([...new Array()]);
+  console.log("x : ", x);
+  console.log("y : ", y);
+  let nodeGraph = new Array(y[1] + 2).fill([...new Array()]);
+  // let nodeGraph = Array.from(Array(y[1] + 1), ()=> new Array(y[0]+1).fill);
+  // new Array(y[1] + 1).fill([...new Array()]);
+  let blockGraph = new Array(y[1] + 2).fill([...new Array()]);
   nodeGraph.forEach((array) => {
     for (let i = 0; i <= y[0]; i++) {
       array[i] = 0;
@@ -61,15 +64,68 @@ function solution(rectangle, characterX, characterY, itemX, itemY) {
     });
   });
 
+  console.log("rowCount", nodeGraph.length);
+  console.log("nodeCount", nodeGraph[0].length);
+
   console.log(nodeGraph);
+
+  const bfs = () => {
+    let visited = Array.from(Array(y[1] + 1), () => new Array(y[0] + 1).fill(0));
+    let result = 0;
+    const queue = [[characterY, characterX]];
+    while (queue.length) {
+      result++;
+      let size = queue.length;
+
+      for (let i = 0; i < size; i++) {
+        let point = queue.shift();
+        let curY = point[0];
+        let curX = point[1];
+
+        if (visited[curY][curX] !== 0) continue;
+        console.log("curX : ", curX);
+        console.log("curY : ", curY);
+        visited[curY][curX] = result;
+        if (curY === itemY && curX === itemX) answer = result;
+        if (curY <= y[0] + 1 && nodeGraph[curY + 1][curX] === "y") queue.push([curY + 1, curX]);
+        if (curX <= y[1] + 1 && nodeGraph[curY][curX + 1] === "y") queue.push([curY, curX + 1]);
+        if (curY > 0 && nodeGraph[curY - 1][curX] === "y") queue.push([curY - 1, curX]);
+        if (curX > 0 && nodeGraph[curY][curX - 1] === "y") queue.push([curY, curX - 1]);
+      }
+    }
+    console.log(visited);
+  };
+
+  bfs();
+
+  console.log(answer - 1);
 }
 
-solution([
-  [1, 1, 7, 4],
-  [3, 2, 5, 5],
-  [4, 3, 6, 9],
-  [2, 6, 8, 8],
-]);
-//   console.log("rowIds ", rowIdx);
-//   console.log("nodeIdx ", nodeIdx);
-//   console.log("i ", i);
+// tester 2
+// solution(
+//   [
+//     [1, 1, 8, 4],
+//     [2, 2, 4, 9],
+//     [3, 6, 9, 8],
+//     [6, 3, 7, 7],
+//   ],
+//   9,
+//   7,
+//   6,
+//   1
+// );
+
+// tester 3
+// solution([[1, 1, 5, 7]], 1, 1, 4, 7);
+
+solution(
+  [
+    [2, 2, 5, 5],
+    [1, 3, 6, 4],
+    [3, 1, 4, 6],
+  ],
+  1,
+  4,
+  6,
+  3
+);
