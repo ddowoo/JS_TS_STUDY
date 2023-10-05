@@ -37,11 +37,3 @@ function solution(genres, plays) {
 }
 
 solution(["classic", "pop", "classic", "classic", "pop"], [500, 600, 150, 800, 2500]);
-
-//   console.log(Object.entries(playCountsPerGenres));
-//   console.log(Object.entries(playCountsPerGenres).sort(([, a], [, b]) => b - a));
-//   console.log(
-//     Object.entries(playCountsPerGenres)
-//       .sort(([, a], [, b]) => b - a)
-//       .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-//   );

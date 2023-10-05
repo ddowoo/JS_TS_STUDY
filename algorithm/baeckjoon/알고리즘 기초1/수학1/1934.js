@@ -1,8 +1,8 @@
-// const inputs = `3
-// 1 45000
-// 6 10
-// 13 17`.split("\n");
-const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+const inputs = `3
+1 45000
+6 10
+13 17`.split("\n");
+// const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
 inputs.shift();
 
 const getComDivisor = (num) => {
