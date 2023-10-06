@@ -1,6 +1,6 @@
 const inputs = "4 2".toString().trim().split(" ");
-const fs = require("fs");
-const inputs = fs.readFileSync("./dev/stdin").toString().trim().split(" ").map(Number);
+// const fs = require("fs");
+// const inputs = fs.readFileSync("./dev/stdin").toString().trim().split(" ").map(Number);
 const N = inputs[0];
 const M = inputs[1];
 
