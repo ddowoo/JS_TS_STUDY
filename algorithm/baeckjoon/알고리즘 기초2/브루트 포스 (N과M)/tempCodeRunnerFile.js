@@ -1,3 +1,3 @@
-  .split("\n");
-// const fs = require("fs");
-// const inputs = fs.readFileSync("./dev/stdin").toString().trim().split("\n");
+console.log("N : ", N);
+// console.log("M : ", M);
+// console.log(numArr);
