@@ -1,11 +1,11 @@
-const inputs = `3 1
-4 4 2`
+const inputs = `4 4
+1 1 2 2`
   .toString()
   .trim()
   .split("\n");
 
-const fs = require("fs");
-const inputs = fs.readFileSync("./dev/stdin").toString().trim().split("\n");
+// const fs = require("fs");
+// const inputs = fs.readFileSync("./dev/stdin").toString().trim().split("\n");
 
 const [N, M] = inputs[0].split(" ").map(Number);
 const numArr = inputs[1]
@@ -21,7 +21,7 @@ const makeNumPair = (nowPair, leftNumArr) => {
   } else {
     leftNumArr.forEach((num, index, arr) => {
       const nextPair = [...nowPair, num];
-      const nextNumArr = [...arr].filter((nextNum, candIndex) => index !== candIndex);
+      const nextNumArr = [...arr].filter((candNum, candIndex) => index !== candIndex && candNum >= num);
 
       makeNumPair(nextPair, nextNumArr);
     });
@@ -29,7 +29,7 @@ const makeNumPair = (nowPair, leftNumArr) => {
 };
 
 numArr.forEach((num, i, arr) => {
-  const leftNumArr = [...arr].filter((candNum, candI) => i !== candI);
+  const leftNumArr = [...arr].filter((candNum, candI) => i !== candI && candNum >= num);
   makeNumPair([num], leftNumArr);
 });
 console.log(answer.join("\n"));
