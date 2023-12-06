@@ -1,7 +1,9 @@
-const [N, M] = `1
-1`
+const [N, ...arr] = require("fs")
+  .readFileSync("/dev/stdin")
   .toString()
-  .split("\n");
+  .trim()
+  .split(/\s+/)
+  .map((v) => +v);
 
 // const fs = require("fs");
 // const [N, M] = fs.readFileSync("./dev/stdin").toString().trim().split("\n");
